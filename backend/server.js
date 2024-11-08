@@ -11,7 +11,7 @@ import userRouter from './routes/UserRoutes.js'
 
 //app config
 const myApp = express()
-const port = process.env.port || 4000
+const port = process.env.PORT || 4000
 ConnectDB()
 ConnectCloudinary()
 
