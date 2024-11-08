@@ -1,0 +1,35 @@
+.navBarDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.544);
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    padding: 15px;
+}
+.navItems{
+    display: flex;
+    gap: 10px;
+}
+.navLogo{
+width: 217px;
+height: 46px;
+opacity: 0px;
+}
+/* Add these styles to NavBar.css */
+
+.mobileMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; /* Add this line to ensure full width */
+    z-index: 20; /* Keep this to ensure it's on top */
+    background-color: white; /* Maintain the background color */
+    transition: all 0.8s ease; /* Smooth transition */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.mobileMenu.hidden {
+    display: none; /* Hide when not needed */
+}

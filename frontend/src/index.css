@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.chiefBtn{
+  background-color: #5F6FFF;
+  width: 195px;
+  height: 54px;
+  border-radius: 47px;
+  color: white;
+}
+.chiefBtn:hover{
+  border: 1px solid rgb(87, 87, 224);
+}
+.active hr{
+  @apply block
+}
+
+::-webkit-scrollbar{
+  @apply hidden
+}
+
+@media (max-width:740px){
+  .active p{
+    @apply text-white bg-primary pl-20 pr-20 rounded-full
+  }
+}

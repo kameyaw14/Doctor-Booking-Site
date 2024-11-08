@@ -1,0 +1,14 @@
+npm install
+npm install axios react-router-dom react-toastify
+
+
+--------TAILWINDCSS----------
+go to https://tailwindcss.com/docs/guides/vite and follow instructions
+
+
+-------REACT ROUTER DOM PACKAGE---------
+this is for pages
+go to the main.jsx file
+import this ;
+    import { BrowserRouter } from 'react-router-dom'
+replace the  "<StrictMode>" tags with "<BrowserRouter>"
