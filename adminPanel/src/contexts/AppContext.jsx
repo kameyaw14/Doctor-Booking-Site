@@ -7,7 +7,7 @@ const AppContextProvider = (props) => {
     const today = new Date();
     const bDate = new Date(userDoB);
 
-    let age = today.getFullYear - bDate.getFullYear;
+    let age = today.getFullYear() - bDate.getFullYear();
     return age;
   };
 

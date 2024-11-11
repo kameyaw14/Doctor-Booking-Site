@@ -3,12 +3,14 @@ import { assets } from "../assets/assets_admin/assets";
 import { AdminContext } from "../contexts/AdminContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { DoctorContext } from "../contexts/DoctorContext";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setAToken, backendURL } = useContext(AdminContext);
+  const { setDToken } = useContext(DoctorContext);
 
   const OnSubmitHandler = async (event) => {
     event.preventDefault();
@@ -16,24 +18,43 @@ const Login = () => {
     console.log(password);
 
     try {
-      //calling api
-      const { data } = await axios.post(backendURL + "/api/admin/login", {
-        adminEmail: email,
-        adminPassword: password,
-      });
-
-      if (data.success) {
-        //getting and storing token
-        localStorage.setItem("aToken", data.token);
-        setAToken(data.token);
-      } else {
-        toast.error(data.message);
-      }
-
       if (state === "Admin") {
+        //calling adminLogin api
+        const { data } = await axios.post(backendURL + "/api/admin/login", {
+          adminEmail: email,
+          adminPassword: password,
+        });
+
+        if (data.success) {
+          //getting and storing token
+          localStorage.setItem("aToken", data.token);
+          setAToken(data.token);
+          toast.success("Logged in successfully");
+        } else {
+          toast.error(data.message);
+        }
         // calling adminLogin api
       } else {
+        //calling doctor login api
+        console.log("doctor");
+
+        const { data } = await axios.post(backendURL + "/api/doctors/login", {
+          docEmail: email,
+          docPassword: password,
+        });
+
+        if (data.success) {
+          //getting and storing token
+          localStorage.setItem("dToken", data.token);
+          setDToken(data.token);
+          toast.success("Logged in successfully");
+          console.log("success" + data.token);
+        } else {
+          toast.error(data.message);
+        }
       }
+      // if (state === "Doctor") {
+      // }
     } catch (error) {}
   };
 

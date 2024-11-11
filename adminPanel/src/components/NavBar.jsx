@@ -4,7 +4,7 @@ import { AdminContext } from "../contexts/AdminContext";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-  const { aToken, setAToken } = useContext(AdminContext);
+  const { aToken, setAToken, dToken } = useContext(AdminContext);
   const navigate = useNavigate();
 
   const HandleLogout = () => {
