@@ -113,32 +113,35 @@ const MyAppointments1 = () => {
               </div>
               <div></div>
               <div className="flex justify-end gap-5">
-                {!item.cancelled && (
-                  <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border  rounded hover:bg-primary hover:text-white transition-all duration-300">
-                    Pay Online
-                  </button>
-                )}
-                {!item.cancelled && (
-                  <button
-                    onClick={() => HandleCancelAppointments(item._id)}
-                    className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border  rounded hover:bg-red-600 hover:text-white transition-all duration-300"
-                  >
-                    Cancel Appointment
-                  </button>
-                )}
-                {item.cancelled && (
-                  <button className="sm:min-w-48 py-2 border border-red-500 rounded text-red-500">
-                    Appointment Cancelled
-                  </button>
-                )}
-                {item.cancelled && (
-                  <button
-                    onClick={() =>
-                      HandleDeleteAppointment(item._id, item.userId)
-                    }
-                    className="sm:min-w-48 py-2 border border-red-500 bg-red-500 rounded text-white"
-                  >
-                    Delete
+                {!item.cancelled && !item.isCompleted ? (
+                  <>
+                    <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border  rounded hover:bg-primary hover:text-white transition-all duration-300">
+                      Pay Online
+                    </button>
+                    <button
+                      onClick={() => HandleCancelAppointments(item._id)}
+                      className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border  rounded hover:bg-red-600 hover:text-white transition-all duration-300"
+                    >
+                      Cancel Appointment
+                    </button>
+                  </>
+                ) : item.cancelled && !item.isCompleted ? (
+                  <>
+                    <button className="sm:min-w-48 py-2 border border-red-500 rounded text-red-500">
+                      Appointment Cancelled
+                    </button>
+                    <button
+                      onClick={() =>
+                        HandleDeleteAppointment(item._id, item.userId)
+                      }
+                      className="sm:min-w-48 py-2 border border-red-500 bg-red-500 rounded text-white"
+                    >
+                      Delete
+                    </button>
+                  </>
+                ) : (
+                  <button className="sm:min-w-48 py-2 border border-green-500 rounded text-green-500">
+                    Appointment Completed
                   </button>
                 )}
               </div>

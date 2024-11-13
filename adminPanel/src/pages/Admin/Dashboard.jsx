@@ -3,8 +3,13 @@ import { AdminContext } from "../../contexts/AdminContext";
 import { assets } from "../../assets/assets_admin/assets";
 
 const Dashboard = () => {
-  const { GetDashboardData, aToken, CancelAppointment, dashData,transformDate } =
-    useContext(AdminContext);
+  const {
+    GetDashboardData,
+    aToken,
+    CancelAppointment,
+    dashData,
+    transformDate,
+  } = useContext(AdminContext);
 
   useEffect(() => {
     if (aToken) {
@@ -55,15 +60,30 @@ const Dashboard = () => {
 
           <div className=" pt-4 border border-t-0 ">
             {dashData.latestAppointments.map((item, index) => (
-              <div key={index} className=" flex items-center px-6 py-3 gap-3 hover:bg-gray-100">
-                <img className="rounded-full w-10 h-10 object-cover" src={item.docData.docImage} alt="" />
+              <div
+                key={index}
+                className=" flex items-center px-6 py-3 gap-3 hover:bg-gray-100"
+              >
+                <img
+                  className="rounded-full w-10 h-10 object-cover"
+                  src={item.docData.docImage}
+                  alt=""
+                />
                 <div className="flex-1 text-sm">
-                  <p className=" text-gray-800 font-medium">{item.docData.docName}</p>
-                  <p className="text-gray-600">{transformDate(item.slotDate)}</p>
+                  <p className=" text-gray-800 font-medium">
+                    {item.docData.docName}
+                  </p>
+                  <p className="text-gray-600">
+                    {transformDate(item.slotDate)}
+                  </p>
                   <p className="text-gray-600">{item.slotTime}</p>
                 </div>
                 {item.cancelled ? (
                   <p className=" text-red-400 font-medium text-xs">Cancelled</p>
+                ) : item.isCompleted ? (
+                  <p className=" text-green-400 font-medium text-xs">
+                    Completed
+                  </p>
                 ) : (
                   <img
                     className=" w-10 cursor-pointer"

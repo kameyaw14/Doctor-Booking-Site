@@ -2,9 +2,16 @@ import React, { useContext, useEffect } from "react";
 import { DoctorContext } from "../../contexts/DoctorContext";
 import { AppContext } from "../../contexts/AppContext";
 import { assets } from "../../assets/assets_admin/assets";
+import { Link } from "react-router-dom";
 
 const DoctorAppointments = () => {
-  const { dToken, appointments, GetAppointments } = useContext(DoctorContext);
+  const {
+    dToken,
+    appointments,
+    GetAppointments,
+    CompleteAppointment,
+    CancelAppointment,
+  } = useContext(DoctorContext);
   const { CalculateAge, transformDate, currencySymbol } =
     useContext(AppContext);
 
@@ -29,19 +36,24 @@ const DoctorAppointments = () => {
           <p>Action</p>
         </div>
 
-        {appointments.map((item, index) => (
+        {appointments.reverse().map((item, index) => (
           <div
             key={index}
             className="flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50"
           >
             <p className="max-sm:hidden">{index + 1}</p>
             <div className="flex items-center gap-2 ">
-              <img
-                src={item.userData.userImage}
-                alt=""
-                className="w-8 rounded-full h-8 object-cover"
-              />
-              <p>{item.userData.userName}</p>
+              <Link
+                to={`/patient/${item.userData._id}`}
+                className="flex items-center gap-2"
+              >
+                <img
+                  src={item.userData.userImage}
+                  alt=""
+                  className="w-8 rounded-full h-8 object-cover"
+                />
+                <p>{item.userData.userName}</p>
+              </Link>
             </div>
             <div>
               <p className="text-xs inline border border-primary px-2 rounded-full">
@@ -57,18 +69,26 @@ const DoctorAppointments = () => {
             <p>
               {currencySymbol} {item.amount}
             </p>
-            <div className="flex">
-              <img
-                src={assets.cancel_icon}
-                alt=""
-                className="w-10 cursor-pointer"
-              />
-              <img
-                src={assets.tick_icon}
-                alt=""
-                className="w-10 cursor-pointer"
-              />
-            </div>
+            {item.cancelled ? (
+              <p className="text-red-600 font-medium text-xs">Cancelled</p>
+            ) : item.isCompleted ? (
+              <p className="text-green-600 font-medium text-xs">Completed</p>
+            ) : (
+              <div className="flex">
+                <img
+                  src={assets.cancel_icon}
+                  alt=""
+                  onClick={() => CancelAppointment(item._id)}
+                  className="w-10 cursor-pointer"
+                />
+                <img
+                  src={assets.tick_icon}
+                  alt=""
+                  onClick={() => CompleteAppointment(item._id)}
+                  className="w-10 cursor-pointer"
+                />
+              </div>
+            )}
           </div>
         ))}
       </div>
