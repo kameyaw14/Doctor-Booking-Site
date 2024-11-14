@@ -192,6 +192,25 @@ const AdminDAshboard = async (req, res) => {
   }
 };
 
+// api to remove doctor
+const RemoveDoctor = async (req,res)=>{
+  try {
+    
+    const {docId} = req.body
+
+    const doctor = await DoctorModel.findByIdAndDelete(docId)
+
+    if (!doctor) {
+      return res.json({ success: false, message: "Doctor not found" });
+    }
+
+    res.json({ success: true, message: "Doctor removed successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+}
+
 export {
   AddDoctor,
   LoginAdmin,
@@ -199,4 +218,5 @@ export {
   AppointmentsAdmin,
   AppointmentCancel,
   AdminDAshboard,
+  RemoveDoctor
 };

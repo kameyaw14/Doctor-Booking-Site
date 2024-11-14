@@ -124,14 +124,32 @@ const AdminContextProvider = (props) => {
       if (data.success) {
         setDashData(data.dashboardData);
         console.log(data.dashboardData);
-        
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
       console.log(error);
-      
+    }
+  };
+
+  const RemoveDoctor = async (docId) => {
+    try {
+      const { data } = await axios.post(
+        backendURL + "/api/admin/remove-doctor",
+        { docId },
+        { headers: { aToken } }
+      );
+
+      if (data.success) {
+        GetAllDoctors();
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error removing doctor:", error);
+      toast("Something went wrong. Please try again later.");
     }
   };
 
@@ -148,6 +166,7 @@ const AdminContextProvider = (props) => {
     GetDashboardData,
     dashData,
     transformDate,
+    RemoveDoctor,
   };
 
   return (
