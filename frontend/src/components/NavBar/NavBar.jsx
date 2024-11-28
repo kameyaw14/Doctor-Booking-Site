@@ -42,9 +42,13 @@ const NavBar = () => {
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
 
-        <button className="hidden md:block  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors">
+        <a
+          href="https://doctor-booking-site-4-admin.onrender.com/"
+          target="_blank"
+          className="hidden md:block  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors"
+        >
           Admin Page
-        </button>
+        </a>
       </ul>
       <div className="flex items-center gap-4">
         {token && userData ? (
@@ -113,9 +117,13 @@ const NavBar = () => {
             <NavLink to="/contact" onClick={() => setShowMenu(false)}>
               <p> Contact </p>
             </NavLink>
-            <button className="hidden md:block  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors">
+            <a
+              href="https://doctor-booking-site-4-admin.onrender.com/"
+              target="_blank"
+              className="hidden md:block  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors"
+            >
               Admin Page
-            </button>
+            </a>
           </ul>
         </div>
       </div>
