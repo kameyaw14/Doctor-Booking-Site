@@ -120,7 +120,7 @@ const NavBar = () => {
             <a
               href="https://doctor-booking-site-4-admin.onrender.com/"
               target="_blank"
-              className="hidden md:block  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors"
+              className="  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors"
             >
               Admin Page
             </a>
