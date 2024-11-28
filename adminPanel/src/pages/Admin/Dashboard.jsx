@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { AdminContext } from "../../contexts/AdminContext";
 import { assets } from "../../assets/assets_admin/assets";
+import { AppContext } from "../../contexts/AppContext";
 
 const Dashboard = () => {
   const {
@@ -10,6 +11,8 @@ const Dashboard = () => {
     dashData,
     transformDate,
   } = useContext(AdminContext);
+
+  const { formatDate } = useContext(AppContext);
 
   useEffect(() => {
     if (aToken) {
@@ -73,9 +76,7 @@ const Dashboard = () => {
                   <p className=" text-gray-800 font-medium">
                     {item.docData.docName}
                   </p>
-                  <p className="text-gray-600">
-                    {transformDate(item.slotDate)}
-                  </p>
+                  <p className="text-gray-600">{formatDate(item.date)}</p>
                   <p className="text-gray-600">{item.slotTime}</p>
                 </div>
                 {item.cancelled ? (

@@ -7,6 +7,7 @@ import DoctorModel from "../models/DoctorModel.js";
 import AppointmentModel from "../models/AppointmentsModel.js";
 import razorpay from 'razorpay'
 
+
 //api to register user
 const RegisterUser = async (req, res) => {
   const { userName, userEmail, userPassword } = req.body;
@@ -175,7 +176,7 @@ const UpdateUserProfile = async (req, res) => {
 //api to bok appointment
 const BookAppointment = async (req, res) => {
   try {
-    const { userId, docId, slotDate, slotTime } = req.body;
+    const { userId, docId, symptoms } = req.body;
 
     const docData = await DoctorModel.findById(docId).select("-password");
 
@@ -189,22 +190,22 @@ const BookAppointment = async (req, res) => {
 
     //checking for slot availabilty
 
-    let slotsBooked = docData.slotsBooked;
+    // let slotsBooked = docData.slotsBooked;
 
-    if (slotsBooked[slotDate]) {
-      if (slotsBooked[slotDate].includes(slotTime)) {
-        return res.json({ success: false, message: "Slot unavailable" });
-      } else {
-        slotsBooked[slotDate].push(slotTime);
-      }
-    } else {
-      slotsBooked[slotDate] = [];
-      slotsBooked[slotDate].push(slotTime);
-    }
+    // if (slotsBooked[slotDate]) {
+    //   if (slotsBooked[slotDate].includes(slotTime)) {
+    //     return res.json({ success: false, message: "Slot unavailable" });
+    //   } else {
+    //     slotsBooked[slotDate].push(slotTime);
+    //   }
+    // } else {
+    //   slotsBooked[slotDate] = [];
+    //   slotsBooked[slotDate].push(slotTime);
+    // }
 
     const userData = await UserModel.findById(userId).select("-password");
 
-    delete docData.slotsBooked;
+    // delete docData.slotsBooked;
 
     //saving to DB pt1
     const appointmentsData = {
@@ -213,8 +214,7 @@ const BookAppointment = async (req, res) => {
       userData,
       docData,
       amount: docData.docFee,
-      slotTime,
-      slotDate,
+      symptoms,
       date: Date.now(),
     };
     //saving to DB pt2
@@ -222,9 +222,19 @@ const BookAppointment = async (req, res) => {
     await newAppointment.save();
 
     //save new slots data in docData
-    await DoctorModel.findByIdAndUpdate(docId, { slotsBooked });
+    // await DoctorModel.findByIdAndUpdate(docId, { slotsBooked });
 
-    res.json({ success: true, message: "Appointmnet booked succesfully" });
+    // Convert the date (timestamp) to a readable format
+    const formattedAppointment = {
+      ...appointmentsData,
+      date: new Date(appointmentsData.date).toLocaleString(),  // Convert timestamp to readable date
+    };
+
+    res.json({
+      success: true,
+      message: "Appointment sent to doctor",
+      appointment: formattedAppointment,  // Send formatted appointment data
+    });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -251,30 +261,21 @@ const CancelAppointmentApi = async (req, res) => {
   try {
     const { userId, appointmentId } = req.body;
 
+    // Fetch appointment data
     const appointmentData = await AppointmentModel.findById(appointmentId);
 
-    //verify appointment user
+    // Verify appointment user
     if (appointmentData.userId !== userId) {
       return res.json({ success: false, message: "Unauthorised action" });
     }
 
-    // setting cancelled property of appointmodel to true
+    // Set 'cancelled' property to true and clear the symptoms
     await AppointmentModel.findByIdAndUpdate(appointmentId, {
       cancelled: true,
+      symptoms: "",  // Or you could use null if you prefer
     });
 
-    //releasing docSlot
-    const { docId, slotDate, slotTime } = appointmentData;
-
-    const docData = await DoctorModel.findById(docId);
-
-    let slotsBooked = docData.slotsBooked;
-
-    slotsBooked[slotDate] = slotsBooked[slotDate].filter((e) => e != slotTime);
-
-    await DoctorModel.findByIdAndUpdate(docId, { slotsBooked });
-
-    res.json({ success: true, message: "Appointment cancelled" });
+    res.json({ success: true, message: "Appointment cancelled " });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -320,6 +321,12 @@ const DeleteAppointmentApi = async (req,res)=>{
 // api to make online payments using razorpay
 
 
+
+
+
+
+
+
 export {
   RegisterUser,
   LoginUser,
@@ -328,5 +335,5 @@ export {
   BookAppointment,
   AppointmentsList,
   CancelAppointmentApi,
-  DeleteAppointmentApi
+  DeleteAppointmentApi,
 };

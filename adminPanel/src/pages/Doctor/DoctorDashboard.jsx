@@ -12,7 +12,7 @@ const DoctorDashboard = () => {
     CompleteAppointment,
     CancelAppointment,
   } = useContext(DoctorContext);
-  const { currencySymbol, transformDate } = useContext(AppContext);
+  const { currencySymbol, formatDate } = useContext(AppContext);
 
   useEffect(() => {
     if (dToken) {
@@ -76,9 +76,7 @@ const DoctorDashboard = () => {
                   <p className=" text-gray-800 font-medium">
                     {item.userData.userName}
                   </p>
-                  <p className="text-gray-600">
-                    {transformDate(item.slotDate)}
-                  </p>
+                  <p className="text-gray-600">{formatDate(item.date)}</p>
                   <p className="text-gray-600">{item.slotTime}</p>
                 </div>
                 {item.cancelled ? (

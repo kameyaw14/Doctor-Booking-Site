@@ -1,32 +1,40 @@
-import React from 'react'
-import { Assets } from '../../assets/assets_frontend/assets'
+import React from "react";
+import { Assets } from "../../assets/assets_frontend/assets";
 
 const Header = () => {
   return (
-    <div className='flex flex-col md:flex-row flex-wrap bg-primary rounded-lg px-6 md:px-10 lg:px20'>
-        <div className="left md:w-1/2 flex flex-col items-start justify-center gap-4 py10 m-auto md:py-[10vw] md:mb[-30px]">
-            <p className='text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-tight md:leading-tight lg:leading-tight'>
-            Book Appointment <br />
-            With Trusted Doctors
-            </p>
-            <div className='flex flex-col md:flex-row items-center gap-3 text-white text-sm font-light'>
-                <img className='w-28' src={Assets.group_profiles} alt="" />
-                <p>
-                Simply browse through our extensive list of trusted doctors,<br className='hidden sm:block'/> 
-                schedule your appointment hassle-free.
-                </p>
-            </div>
-            <a href="#speciality" className='flex items-center gap-2 bg-white px-8 py-3 rounded-full text-gray-600 text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300'>
-            Book appointment
-            <img className='w-3' src={Assets.arrow_icon} alt="" />
-            </a>
+    <div className="relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16 px-6 lg:px-16">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between space-y-12 lg:space-y-0">
+        <div className="text-center lg:text-left flex flex-col items-center lg:items-start space-y-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-wide">
+            Book Your Appointment with Trusted Doctors
+          </h1>
+          <p className="text-lg font-light max-w-md">
+            Easily browse through a list of expert doctors and schedule your
+            consultation in just a few clicks.
+          </p>
+          <a
+            href="#speciality"
+            className="inline-flex items-center bg-white text-gray-800 px-8 py-3 rounded-full text-base font-medium shadow-md hover:bg-gray-100 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
+            Book Appointment
+            <img
+              className="w-4 ml-2"
+              src={Assets.arrow_icon}
+              alt="Arrow Icon"
+            />
+          </a>
         </div>
-        <div className="right md:w-1/2 relative ">
-            <img className='w-full md:absolute bottom-0 h-auto rounded-lg' src={Assets.header_img} alt="" />
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+          <img
+            className="w-80 md:w-96 lg:w-full h-auto rounded-lg shadow-lg"
+            src={Assets.header_img}
+            alt="Doctor Consultation"
+          />
         </div>
-
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

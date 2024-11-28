@@ -1,13 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets_admin/assets";
 import { AdminContext } from "../contexts/AdminContext";
 import { useNavigate } from "react-router-dom";
 import { DoctorContext } from "../contexts/DoctorContext";
+import Modal from "./Modal";
 
 const NavBar = () => {
   const { aToken, setAToken } = useContext(AdminContext);
   const { dToken, setDToken } = useContext(DoctorContext);
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
 
   const HandleLogout = () => {
     navigate("/");
@@ -31,11 +34,35 @@ const NavBar = () => {
         </p>
       </div>
       <button
-        onClick={HandleLogout}
-        className="bg-primary text-white text-sm px-10 py-2 rounded-full"
+        onClick={() => setOpen(true)}
+        className="bg-primary text-white text-sm lg:px-10 lg:py-2 px-5 py-1 rounded-full "
       >
         Log Out
       </button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className="flex items-center justify-center  max-w-sm mx-auto">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold mb-4">Confirm Logout</h2>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to log out?
+            </p>
+            <div className="flex justify-evenly gap-4">
+              <button
+                onClick={HandleLogout}
+                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none"
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                className="bg-gray-300 text-black px-4 py-2 rounded-md hover:bg-gray-400 focus:outline-none"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

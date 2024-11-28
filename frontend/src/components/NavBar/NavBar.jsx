@@ -24,7 +24,7 @@ const NavBar = () => {
         src={Assets.logo}
         alt=""
       />
-      <ul className="navItems hidden md:flex items-start gap-5 font-medium">
+      <ul className="navItems hidden lg:flex items-start gap-5 font-medium">
         <NavLink to={"/"}>
           <li className="py-1">Home</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
@@ -41,6 +41,10 @@ const NavBar = () => {
           <li className="py-1">contact</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
+
+        <button className="hidden md:block  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors">
+          Admin Page
+        </button>
       </ul>
       <div className="flex items-center gap-4">
         {token && userData ? (
@@ -81,7 +85,7 @@ const NavBar = () => {
         )}
         <img
           onClick={() => setShowMenu(true)}
-          className="w-6 md:hidden"
+          className="w-6 lg:hidden"
           src={Assets.menu_icon}
           alt=""
         />
@@ -109,6 +113,9 @@ const NavBar = () => {
             <NavLink to="/contact" onClick={() => setShowMenu(false)}>
               <p> Contact </p>
             </NavLink>
+            <button className="hidden md:block  bg-primary text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-green-600 transition-colors">
+              Admin Page
+            </button>
           </ul>
         </div>
       </div>

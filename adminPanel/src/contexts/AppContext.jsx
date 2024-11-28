@@ -37,10 +37,15 @@ const AppContextProvider = (props) => {
 
   const currencySymbol = "$";
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleString();
+  };
+
   const value = {
     CalculateAge,
     transformDate,
     currencySymbol,
+    formatDate,
   };
 
   return (

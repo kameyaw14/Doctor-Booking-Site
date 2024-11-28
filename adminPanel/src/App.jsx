@@ -18,6 +18,7 @@ import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
 import DoctorAppointments from "./pages/Doctor/DoctorAppointments";
 import DoctorProfile from "./pages/Doctor/DoctorProfile";
 import PatientInfo from "./pages/Doctor/PatientInfo";
+import BookedAppointments from "./pages/Doctor/BookedAppointments";
 
 function App() {
   const { aToken } = useContext(AdminContext);
@@ -32,9 +33,13 @@ function App() {
           <Sidebar />
           <Routes>
             {/* adminRoutes */}
-            <Route path="/" element={<></>} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/admin-dashboard" element={<Dashboard />} />
             <Route path="/all-appointments" element={<AllAppointments />} />
+            <Route
+              path="/booked-appointments"
+              element={<BookedAppointments />}
+            />
             <Route path="/add-doctor" element={<AddDoctor />} />
             <Route path="/doctor-list" element={<DoctorsList />} />
             {/* DoctorRoutes */}
@@ -44,7 +49,10 @@ function App() {
               element={<DoctorAppointments />}
             />
             <Route path="/doctor-profile" element={<DoctorProfile />} />
-            <Route path="/patient/:userId" element={<PatientInfo />} />
+            <Route
+              path="/doctor-appointments/:appointmentId"
+              element={<PatientInfo />}
+            />
           </Routes>
         </div>
       </div>

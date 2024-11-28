@@ -84,6 +84,18 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink
+            to={"/booked-appointments"}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${
+                isActive ? "bg-gray-50 border-r-4 border-primary" : ""
+              }`
+            }
+          >
+            <img src={assets.list_icon} alt="" />
+            <p className="hidden md:block">Booked Appointments</p>
+          </NavLink>
+
+          <NavLink
             to={"/doctor-profile"}
             className={({ isActive }) =>
               `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${
